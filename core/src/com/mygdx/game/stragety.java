@@ -7,11 +7,9 @@ import java.util.List;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class stragety extends ApplicationAdapter {
@@ -122,7 +120,8 @@ public class stragety extends ApplicationAdapter {
 			public boolean keyDown(int keycode) {
 				if (keycode == Keys.SPACE) {
 					grid.occupyNode(row, column);
-
+					System.out
+							.println("points: " + Integer.toString(grid.score()[0]) + " rp: " + Integer.toString(grid.score()[1]));
 					row = 0;
 					tracking = false;
 					System.out.println(row + " " + column);
