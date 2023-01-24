@@ -20,7 +20,7 @@ public class stragety extends ApplicationAdapter {
 
 		public node(int t) {
 			type = t;
-			occupied = false;
+			occupied = true;
 		}
 
 		public void draw(int x, int y, SpriteBatch b) {
@@ -93,7 +93,7 @@ public class stragety extends ApplicationAdapter {
 		public void draw(SpriteBatch b) {
 			for (int i = 0; i < nodes.size(); i++) {
 				for (int j = 0; j < nodes.get(i).size(); j++) {
-					nodes.get(i).get(j).draw(j * 30, i * 30, b);
+					nodes.get(i).get(j).draw(j * 147, i * 147, b);
 				}
 			}
 		}
@@ -115,10 +115,6 @@ public class stragety extends ApplicationAdapter {
 		batch.begin();
 		grid.draw(batch);
 		batch.end();
-		sr.begin(ShapeType.Filled);
-		sr.setColor(Color.RED);
-		sr.rect(0, 0, 300, 20);
-		sr.end();
 	}
 
 	@Override
