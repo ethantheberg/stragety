@@ -5,11 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class stragety extends ApplicationAdapter {
@@ -20,7 +22,7 @@ public class stragety extends ApplicationAdapter {
 
 		public node(int t) {
 			type = t;
-			occupied = true;
+			occupied = false;
 		}
 
 		public void draw(int x, int y, SpriteBatch b) {
@@ -53,6 +55,10 @@ public class stragety extends ApplicationAdapter {
 			nodes.add(
 					Arrays.asList(new node(2), new node(2), new node(2), new node(2), new node(2), new node(2), new node(2),
 							new node(2), new node(2)));
+		}
+
+		public void occupyNode(int row, int column) {
+			nodes.get(row - 1).get(column - 1).occupied = !nodes.get(row - 1).get(column - 1).occupied;
 		}
 
 		public int[] score() {
@@ -93,7 +99,7 @@ public class stragety extends ApplicationAdapter {
 		public void draw(SpriteBatch b) {
 			for (int i = 0; i < nodes.size(); i++) {
 				for (int j = 0; j < nodes.get(i).size(); j++) {
-					nodes.get(i).get(j).draw(j * 147, i * 147, b);
+					nodes.get(i).get(j).draw(j * 147, 2 * 147 - (i * 147), b);
 				}
 			}
 		}
@@ -101,17 +107,48 @@ public class stragety extends ApplicationAdapter {
 
 	SpriteBatch batch;
 	Texture img;
+	Grid grid;
 
 	@Override
 	public void create() {
+		grid = new Grid();
 		batch = new SpriteBatch();
+		Gdx.input.setInputProcessor(new InputAdapter() {
+			int column = 0;
+			int row = 0;
+			boolean tracking = false;
+
+			@Override
+			public boolean keyDown(int keycode) {
+				if (keycode == Keys.SPACE) {
+					grid.occupyNode(row, column);
+
+					row = 0;
+					tracking = false;
+					System.out.println(row + " " + column);
+				} else if (keycode - 7 >= 1 && keycode - 7 <= 9) {
+					if (tracking) {
+						column = keycode - 7;
+						row += 1;
+						if (row >= 4) {
+							row = 1;
+						}
+						System.out.println(row + " " + column);
+					} else {
+						column = keycode - 7;
+						tracking = true;
+						row = 1;
+						System.out.println(row + " " + column);
+					}
+				}
+				return true; // return true to indicate the event was handled
+			}
+		});
 	}
 
 	@Override
 	public void render() {
 		ScreenUtils.clear(0, 0, 0, 1);
-		ShapeRenderer sr = new ShapeRenderer();
-		Grid grid = new Grid();
 		batch.begin();
 		grid.draw(batch);
 		batch.end();
