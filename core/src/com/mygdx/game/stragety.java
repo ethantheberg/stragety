@@ -1,16 +1,16 @@
 package com.mygdx.game;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class stragety extends ApplicationAdapter {
 
@@ -204,7 +204,7 @@ public class stragety extends ApplicationAdapter {
 					tracking = false;
 					System.out.println(row + " " + column);
 					nextCoords = grid.findPlacement();
-					System.out.println(nextCoords);
+					System.out.println((nextCoords[0]+1) + ", " + (nextCoords[1]+1));
 				} else if (keycode - 7 >= 1 && keycode - 7 <= 9) {
 					if (tracking) {
 						column = keycode - 7;
