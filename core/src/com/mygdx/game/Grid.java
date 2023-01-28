@@ -75,7 +75,7 @@ public class Grid {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 if (!Nodes.get(i).get(j).occupied) {
                     Nodes.get(i).get(j).occupied = true;
-                    float[] test = this.relativeScore();
+                    float[] test = this.absoluteScore();
                     Nodes.get(i).get(j).occupied = false;
                     if (test[0] > bestScore) {
                         bestScore = test[0];
@@ -88,7 +88,7 @@ public class Grid {
         return new int[] { bestX, bestY };
     }
 
-    public int[] absoluteScore() {
+    public float[] absoluteScore() {
         int rp = 0;
         int score = 0;
         int linkAccum = 0;
@@ -125,7 +125,7 @@ public class Grid {
         if (nLinks >= (coopbonus ? 4 : 5)) {
             rp += 1;
         }
-        return new int[] { score, rp };
+        return new float[] { score, rp };
     }
 
     public void draw(SpriteBatch b) {
