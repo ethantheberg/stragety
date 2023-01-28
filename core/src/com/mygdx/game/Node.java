@@ -12,7 +12,7 @@ public class Node {
         occupied = false;
     }
 
-    public void draw(int x, int y, SpriteBatch b, boolean cursor) {
+    public void draw(int x, int y, SpriteBatch b, boolean cursor, boolean recomendation) {
         switch (type) {
             case 0:
                 b.draw(new Texture(occupied ? "cone occupied.png" : "cone unoccupied.png"), x, y);
@@ -26,6 +26,9 @@ public class Node {
         }
         if (cursor) {
             b.draw(new Texture("cursor.png"), x, y);
+        }
+        if (recomendation) {
+            b.draw(new Texture("algorithmCursor.png"), x, y);
         }
     }
 }

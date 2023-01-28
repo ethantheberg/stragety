@@ -9,6 +9,8 @@ import java.util.List;
 public class Grid {
     private ArrayList<List<Node>> Nodes;
     boolean coopbonus = false;
+    public int bestX = 0;
+    public int bestY = 0;
 
     public Grid() {
         Nodes = new ArrayList<List<Node>>();
@@ -69,8 +71,6 @@ public class Grid {
 
     public int[] findPlacement() {
         float bestScore = 0;
-        int bestX = 0;
-        int bestY = 0;
         for (int i = 0; i < Nodes.size(); i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 if (!Nodes.get(i).get(j).occupied) {
@@ -131,7 +131,7 @@ public class Grid {
     public void draw(SpriteBatch b) {
         for (int i = 0; i < Nodes.size(); i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
-                Nodes.get(i).get(j).draw(j * 147, 2 * 147 - (i * 147), b, j == stragety.column-1 && i == stragety.row-1);
+                Nodes.get(i).get(j).draw(j * 147, 2 * 147 - (i * 147), b, j == stragety.column-1 && i == stragety.row-1, j == bestY && i == bestX);
             }
         }
     }
