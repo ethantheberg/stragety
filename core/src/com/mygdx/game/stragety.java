@@ -87,7 +87,7 @@ public class stragety extends ApplicationAdapter {
 								break;
 						}
 					} else {
-						score += linkAccum / 3 * 5;
+						score += (float) linkAccum / 3.0f * 5.0f;
 						linkAccum = 0;
 
 					}
@@ -110,7 +110,9 @@ public class stragety extends ApplicationAdapter {
 			for (int i = 0; i < nodes.size(); i++) {
 				for (int j = 0; j < nodes.get(i).size(); j++) {
 					if (!nodes.get(i).get(j).occupied) {
-						float[] test = generateGrid(i, j).relativeScore();
+						nodes.get(i).get(j).occupied = true;
+						float[] test = this.relativeScore();
+						nodes.get(i).get(j).occupied = false;
 						if (test[0] > bestScore) {
 							bestScore = test[0];
 							bestX = i;
