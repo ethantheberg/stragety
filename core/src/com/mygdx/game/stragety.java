@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +14,7 @@ public class stragety extends ApplicationAdapter {
 	Grid grid;
 	static int column = 0;
 	static int row = 0;
+	int[] nextCoords = new int[2];
 
 	@Override
 	public void create() {
@@ -21,14 +22,19 @@ public class stragety extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(new InputAdapter() {
 			boolean tracking = false;
+
 			@Override
 			public boolean keyDown(int keycode) {
-				if (keycode == Input.Keys.SPACE) {
+				if (keycode == Keys.SPACE) {
 					grid.occupyNode(row, column);
-					System.out.println("points: " + Integer.toString(grid.score()[0]) + " rp: " + Integer.toString(grid.score()[1]));
+					System.out
+							.println("points: " + Float.toString(grid.relativeScore()[0]) + " rp: "
+									+ Float.toString(grid.relativeScore()[1]));
 					row = 0;
 					tracking = false;
 					System.out.println(row + " " + column);
+					nextCoords = grid.findPlacement();
+					System.out.println((nextCoords[0]+1) + ", " + (nextCoords[1]+1));
 				} else if (keycode - 7 >= 1 && keycode - 7 <= 9) {
 					if (tracking) {
 						column = keycode - 7;
