@@ -49,7 +49,7 @@ public class stragety extends ApplicationAdapter {
 						row = 1;
 						System.out.println(row + " " + column);
 					}
-				}
+				} else {}
 				return true; // return true to indicate the event was handled
 			}
 		});

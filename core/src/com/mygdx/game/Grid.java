@@ -7,13 +7,22 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Grid {
-    private ArrayList<List<Node>> Nodes;
+    public ArrayList<List<Node>> Nodes;
+    public ArrayList<List<Integer>> NodeTypes;
     boolean coopbonus = false;
     public int bestX = 0;
     public int bestY = 0;
 
     public Grid() {
         Nodes = new ArrayList<List<Node>>();
+        NodeTypes.add(Arrays.asList(0, 1, 0, 0, 1, 0, 0, 1, 0));
+        NodeTypes.add(Arrays.asList(0, 1, 0, 0, 1, 0, 0, 1, 0));
+        NodeTypes.add(Arrays.asList(2, 2, 2, 2, 2, 2, 2, 2, 2));
+        for(int i = 0; i <= NodeTypes.size(); i++) {
+            for(int j = 0; j<= NodeTypes.get(i).size(); j++) {
+                Nodes.get(i).add(Arrays.asList(new Node(NodeTypes.get(i).get(j))));
+            }
+        }
         Nodes.add(
                 Arrays.asList(new Node(0), new Node(1), new Node(0), new Node(0), new Node(1), new Node(0), new Node(0),
                         new Node(1), new Node(0)));
@@ -55,7 +64,6 @@ public class Grid {
                 } else {
                     score += (float) linkAccum / 3.0f * 5.0f;
                     linkAccum = 0;
-
                 }
             }
             linkAccum = 0;
