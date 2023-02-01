@@ -75,7 +75,7 @@ public class Grid {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 if (!Nodes.get(i).get(j).occupied) {
                     Nodes.get(i).get(j).occupied = true;
-                    float[] test = this.absoluteScore();
+                    float[] test = this.absoluteScore(); //flag
                     Nodes.get(i).get(j).occupied = false;
                     if (test[0] > bestScore) {
                         bestScore = test[0];
@@ -128,11 +128,15 @@ public class Grid {
         return new float[] { score, rp };
     }
 
-    public void draw(SpriteBatch b) {
+    public void draw() {
+        SpriteBatch b = new SpriteBatch();
+        b.begin();
         for (int i = 0; i < Nodes.size(); i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 Nodes.get(i).get(j).draw(j * 147, 2 * 147 - (i * 147), b, j == stragety.column-1 && i == stragety.row-1, j == bestY && i == bestX);
             }
         }
+        b.end();
+        b.dispose();
     }
 }
