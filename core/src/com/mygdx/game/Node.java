@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Node {
     int type;
+    int yOffset = 200;
     Boolean occupied;
     Texture occupiedCone = new Texture("cone occupied.png");
     Texture unoccupiedCone = new Texture("cone unoccupied.png");
@@ -23,20 +24,20 @@ public class Node {
     public void draw(int x, int y, SpriteBatch b, boolean cursor, boolean recomendation) {
         switch (type) {
             case 0:
-                b.draw(occupied ? occupiedCone : unoccupiedCone, x, y);
+                b.draw(occupied ? occupiedCone : unoccupiedCone, x, y + yOffset);
                 break;
             case 1:
-                b.draw(occupied ? occupiedCube : unoccupiedCube, x, y);
+                b.draw(occupied ? occupiedCube : unoccupiedCube, x, y + yOffset);
                 break;
             case 2:
-                b.draw(occupied ? occupiedHybrid : unoccupiedHybrid, x, y);
+                b.draw(occupied ? occupiedHybrid : unoccupiedHybrid, x, y + yOffset);
                 break;
         }
         if (cursor) {
-            b.draw(cursorSprite, x, y);
+            b.draw(cursorSprite, x, y + yOffset);
         }
         if (recomendation) {
-            b.draw(algorithmCursor, x, y);
+            b.draw(algorithmCursor, x, y + yOffset);
         }
     }
 }

@@ -12,7 +12,6 @@ public class stragety extends ApplicationAdapter {
 	Grid grid;
 	static int column = 0;
 	static int row = 0;
-	int[] nextCoords = new int[2];
 
 	@Override
 	public void create() {
@@ -22,8 +21,7 @@ public class stragety extends ApplicationAdapter {
 
 			@Override
 			public boolean keyDown(int keycode) {
-				if (keycode == Keys.SPACE) {
-
+				if (keycode == Keys.ENTER && tracking) {
 					grid.occupyNode(row, column);
 					System.out
 							.println("points: " + grid.relativeScore()[0] + " rp: "
@@ -31,12 +29,19 @@ public class stragety extends ApplicationAdapter {
 					row = 0;
 					tracking = false;
 					System.out.println(row + " " + column);
-					nextCoords = grid.findPlacement();
-					System.out.println((nextCoords[0]+1) + ", " + (nextCoords[1]+1));
+				} else if (keycode == Keys.SPACE) {
+					tracking = true;
+					row = Grid.bestX + 1;
+					column = Grid.bestY + 1;
+					System.out.println(Grid.bestX + "; " + Grid.bestY);
 				} else if (keycode - 7 >= 1 && keycode - 7 <= 9) {
 					if (tracking) {
-						column = keycode - 7;
-						row += 1;
+						if (column == keycode - 7) {
+							row += 1;
+						} else {
+							row = 1;
+							column = keycode - 7;
+						}
 						if (row >= 4) {
 							row = 1;
 						}
@@ -57,6 +62,7 @@ public class stragety extends ApplicationAdapter {
 	public void render() {
 		ScreenUtils.clear(0, 0, 0, 1);
 		grid.draw();
+		grid.findPlacement();
 	}
 
 	@Override
@@ -64,9 +70,6 @@ public class stragety extends ApplicationAdapter {
 		img.dispose();
 	}
 
-	public int findPlacement() {
-		return 1;
-	}
 }
 
 
