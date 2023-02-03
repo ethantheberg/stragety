@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class stragety extends ApplicationAdapter {
 	Texture img;
 	Grid grid;
+	HUD hud;
 	static int column = 0;
 	static int row = 0;
 
@@ -62,6 +63,7 @@ public class stragety extends ApplicationAdapter {
 	public void render() {
 		ScreenUtils.clear(0, 0, 0, 1);
 		grid.draw();
+		//hud.draw();
 		grid.findPlacement();
 	}
 
