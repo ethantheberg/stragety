@@ -9,10 +9,11 @@ import java.util.List;
 public class Grid {
     private ArrayList<List<Node>> Nodes;
     boolean coopbonus = false;
-    public static int bestX = 0;
-    public static int bestY = 3;
+    public int bestX = 0;
+    public int bestY = 3;
+    private stragety strategy;
 
-    public Grid() {
+    public void FillNodes() {
         Nodes = new ArrayList<List<Node>>();
         Nodes.add(
                 Arrays.asList(new Node(0), new Node(1), new Node(0), new Node(0), new Node(1), new Node(0), new Node(0),
@@ -29,14 +30,16 @@ public class Grid {
         Nodes.get(row - 1).get(column - 1).occupied = !Nodes.get(row - 1).get(column - 1).occupied;
     }
 
+    public Grid(stragety s) {
+        this.strategy = s;
+    }
 
-
-    public int[] findPlacement() {
+    public int[] findPlacement(List allowedTypes, boolean[] RowSorting) {
         float bestScore = 0;
         float bestRP = 0;
         for (int i = 0; i < Nodes.size(); i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
-                if (!Nodes.get(i).get(j).occupied) {
+                if (!Nodes.get(i).get(j).occupied && allowedTypes.contains(Nodes.get(i).get(j).type) && RowSorting[i]) {
                     Nodes.get(i).get(j).occupied = true;
                     float[] test = this.relativeScore();
                     Nodes.get(i).get(j).occupied = false;
@@ -108,10 +111,15 @@ public class Grid {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 if (Nodes.get(i).get(j).occupied) {
                     linkAccum += 1;
-                    if (linkAccum == 3) {
-                        score += 5;
-                        nLinks += 1;
-                        linkAccum = 0;
+                    switch (linkAccum) {
+                        case 2:
+                            score += 6;
+                            break;
+                        case 3:
+                            score += 5;
+                            nLinks += 1;
+                            linkAccum = 0;
+                            break;
                     }
                     switch (i) {
                         case 0:
@@ -128,7 +136,6 @@ public class Grid {
                         rp += 0.5;
                     }
                 } else {
-                    //score += (float) linkAccum / 3.0f * 5.0f;
                     linkAccum = 0;
 
                 }
@@ -145,15 +152,13 @@ public class Grid {
     }
 
 
-    public void draw() {
-        SpriteBatch b = new SpriteBatch();
+    public void draw(SpriteBatch b) {
         b.begin();
         for (int i = 0; i < Nodes.size(); i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
-                Nodes.get(i).get(j).draw(j * 147, 2 * 147 - (i * 147), b, j == stragety.column-1 && i == stragety.row-1, j == bestY && i == bestX);
+                Nodes.get(i).get(j).draw(j * 147, 2 * 147 - (i * 147), b, j == strategy.column-1 && i == strategy.row-1, j == bestY && i == bestX);
             }
         }
         b.end();
-        b.dispose();
     }
 }

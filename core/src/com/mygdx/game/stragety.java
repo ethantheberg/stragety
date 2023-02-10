@@ -4,19 +4,26 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class stragety extends ApplicationAdapter {
-	Texture img;
 	Grid grid;
-	HUD hud;
-	static int column = 0;
-	static int row = 0;
+	Hud hud;
+	int column = 0;
+	int row = 0;
+	SpriteBatch batch;
+	BitmapFont font;
+
 
 	@Override
 	public void create() {
-		grid = new Grid();
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+		grid = new Grid(this);
+		grid.FillNodes();
+		hud = new Hud();
 		Gdx.input.setInputProcessor(new InputAdapter() {
 			boolean tracking = false;
 
@@ -32,9 +39,9 @@ public class stragety extends ApplicationAdapter {
 					System.out.println(row + " " + column);
 				} else if (keycode == Keys.SPACE) {
 					tracking = true;
-					row = Grid.bestX + 1;
-					column = Grid.bestY + 1;
-					System.out.println(Grid.bestX + "; " + Grid.bestY);
+					row = grid.bestX + 1;
+					column = grid.bestY + 1;
+					System.out.println(grid.bestX + "; " + grid.bestY);
 				} else if (keycode - 7 >= 1 && keycode - 7 <= 9) {
 					if (tracking) {
 						if (column == keycode - 7) {
@@ -53,6 +60,16 @@ public class stragety extends ApplicationAdapter {
 						row = 1;
 						System.out.println(row + " " + column);
 					}
+				} else if (keycode == Keys.A) {
+					hud.ConeSorting = !hud.ConeSorting;
+				} else if (keycode == Keys.S) {
+					hud.CubeSorting = !hud.CubeSorting;
+				} else if (keycode == Keys.R) {
+					hud.RowSorting[0] = !hud.RowSorting[0];
+				} else if (keycode == Keys.F) {
+					hud.RowSorting[1] = !hud.RowSorting[1];
+				} else if (keycode == Keys.V) {
+					hud.RowSorting[2] = !hud.RowSorting[2];
 				}
 				return true; // return true to indicate the event was handled
 			}
@@ -62,14 +79,16 @@ public class stragety extends ApplicationAdapter {
 	@Override
 	public void render() {
 		ScreenUtils.clear(0, 0, 0, 1);
-		grid.draw();
-		//hud.draw();
-		grid.findPlacement();
+		grid.draw(batch);
+		hud.draw(batch, font);
+		grid.findPlacement(hud.allowedTypes, hud.RowSorting);
+		hud.allowedTypes.clear();
+		hud.allowedTypes.add(2);
 	}
 
 	@Override
 	public void dispose() {
-		img.dispose();
+
 	}
 
 }

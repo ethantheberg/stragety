@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Node {
     int type;
-    int yOffset = 200;
+    int yOffset = 300;
     Boolean occupied;
     Texture occupiedCone = new Texture("cone occupied.png");
     Texture unoccupiedCone = new Texture("cone unoccupied.png");
