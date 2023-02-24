@@ -29,7 +29,7 @@ public class stragety extends ApplicationAdapter {
 
 			@Override
 			public boolean keyDown(int keycode) {
-				if (keycode == Keys.ENTER && tracking) {
+				if (keycode == Keys.SPACE && tracking) {
 					grid.occupyNode(row, column);
 					System.out
 							.println("points: " + grid.relativeScore()[0] + " rp: "
@@ -37,7 +37,7 @@ public class stragety extends ApplicationAdapter {
 					row = 0;
 					tracking = false;
 					System.out.println(row + " " + column);
-				} else if (keycode == Keys.SPACE) {
+				} else if (keycode == Keys.ENTER) {
 					tracking = true;
 					row = grid.bestX + 1;
 					column = grid.bestY + 1;
