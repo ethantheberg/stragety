@@ -70,6 +70,8 @@ public class stragety extends ApplicationAdapter {
 					hud.RowSorting[1] = !hud.RowSorting[1];
 				} else if (keycode == Keys.V) {
 					hud.RowSorting[2] = !hud.RowSorting[2];
+				} else if (keycode == Keys.L) {
+					grid.clear();
 				}
 				return true; // return true to indicate the event was handled
 			}

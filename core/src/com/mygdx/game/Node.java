@@ -15,6 +15,13 @@ public class Node {
     Texture unoccupiedHybrid = new Texture("hybrid unoccupied.png");
     Texture cursorSprite = new Texture("cursor.png");
     Texture algorithmCursor = new Texture("algorithmCursor.png");
+    Texture occupiedConeButton = new Texture("cone button occupied.png");
+    Texture unoccupiedConeButton = new Texture("cone button unoccupied.png");
+    Texture occupiedCubeButton = new Texture("cube button occupied.png");
+    Texture unoccupiedCubeButton = new Texture("cube button unoccupied.png");
+
+
+
 
     public Node(int t) {
         type = t;
@@ -31,6 +38,12 @@ public class Node {
                 break;
             case 2:
                 b.draw(occupied ? occupiedHybrid : unoccupiedHybrid, x, y + yOffset);
+                break;
+            case 3:
+                b.draw(occupied ? occupiedConeButton : unoccupiedConeButton, x, y + yOffset);
+                break;
+            case 4:
+                b.draw(occupied ? occupiedCubeButton : unoccupiedCubeButton, x, y + yOffset);
                 break;
         }
         if (cursor) {

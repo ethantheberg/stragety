@@ -151,6 +151,16 @@ public class Grid {
         return new float[] { score, rp, linkAccum };
     }
 
+    public void clear() {
+        for(int i = 1; i <= 3; i++) {
+            for(int j = 1; j <= 9; j++) {
+                if(Nodes.get(i - 1).get(j - 1).occupied) {
+                    occupyNode(i, j);
+                }
+            }
+        }
+    }
+
 
     public void draw(SpriteBatch b) {
         b.begin();

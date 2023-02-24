@@ -13,8 +13,8 @@ public class Hud {
     boolean ConeSorting = true;
     boolean CubeSorting = true;
     boolean[] RowSorting =  {true, true, true};
-    Node ConeButton = new Node(0);
-    Node CubeButton = new Node(1);
+    Node ConeButton = new Node(3);
+    Node CubeButton = new Node(4);
 
     List<Integer> allowedTypes = new ArrayList<>(2);
 
@@ -33,6 +33,9 @@ public class Hud {
         if(CubeSorting){ allowedTypes.add(1); }
         renderRowsDiagram(RowSorting, b);
         font.draw(b, "Toggle rows sorting", 495, 90);
+        font.draw(b, "(Press R)", 630, 240);
+        font.draw(b, "(Press F)", 660, 190);
+        font.draw(b, "(Press V)", 690, 140);
         b.end();
     }
 
